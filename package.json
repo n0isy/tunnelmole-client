@@ -1,11 +1,14 @@
 {
   "name": "@n0isy/tunnelmole-client",
-  "version": "2.2.15",
+  "version": "2.2.16",
   "description": "Tunnelmole, an open source ngrok alternative. Instant public URLs for any http/https based application. Available as a command line application or as an NPM dependency for your code. Stable and maintained. Good test coverage. Works behind firewalls",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "type": "module",
   "homepage": "https://tunnelmole.com",
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "tunnelmole",
     "tunneling",
@@ -34,15 +37,14 @@
     "build": "tsc -p ./",
     "watch": "tsc -p ./ -w",
     "lint": "eslint . --ext .ts",
-    "start": "npm run watch & nodemon dist/src/tunnelmole.js 3000",
+    "start": "npm run watch & nodemon dist/bin/tunnelmole.js 3000",
     "test": "npm run build && node --experimental-vm-modules node_modules/jest/bin/jest --forceExit",
     "rollup": "rollup -c --bundleConfigAsCjs",
     "build-linux-bin": "pkg tunnelmole.bundle.js --targets node18-linux-x64 --output tmole-linux",
     "build-mac-bin": "pkg tunnelmole.bundle.js --targets node18-mac-x64 --output tmole-mac",
     "build-windows-bin": "pkg tunnelmole.bundle.js --targets node18-win-x64 --output tmole.exe",
     "build-all-bin": "npm run build && npm run rollup && npm run build-linux-bin && npm run build-mac-bin && npm run build-windows-bin",
-    "postinstall": "node cjs/bin/postinstall.js",
-    "prepublishOnly": "node -e \"if (require('fs').existsSync('./.nopublish')) process.exit(1)\""
+    "postinstall": "node cjs/bin/postinstall.js"
   },
   "bin": {
     "tmole": "dist/bin/tunnelmole.js",

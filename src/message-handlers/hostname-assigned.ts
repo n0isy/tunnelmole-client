@@ -14,10 +14,10 @@ export default async function hostnameAssigned(message: HostnameAssignedMessage,
     const httpsUrl = `https://${message.hostname}`;
 
 
-    if (process.env.TUNNELMOLE_QUIET_MODE !== '1') {
+    if (process.env.TUNNELMOLE_DEBUG === '1') {
         console.info(`${httpUrl} is forwarding to localhost:${port}`);
         console.info(`${httpsUrl} is forwarding to localhost:${port}`);
     }
-    
+
     eventHandler.emit(URL_ASSIGNED, httpsUrl);
 }
