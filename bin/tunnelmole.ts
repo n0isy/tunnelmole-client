@@ -1,20 +1,11 @@
 #!/usr/bin/env node
 
-sendMessage({
-    type: "cli-initialise",
-    data: {
-        nodeVersion: process.version ? process.version : "Unknown",
-        platform: process.platform ? process.platform : "Unknown"
-    }
-});
-
 // sourceMapSupport makes TypeScript line numbers show up in stack traces, making debugging much easier
 import sourceMapSupport from 'source-map-support';
 sourceMapSupport.install();
 
 import program from 'commander';
 import dispatchCommand from '../src/cli/dispatch-command.js';
-import { sendMessage } from '../src/telemetry/send-message.js';
 import { initStorage } from '../src/node-persist/storage.js';
 import { initialiseClientId } from '../src/identity/client-id-service.js';
 

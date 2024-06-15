@@ -21,11 +21,7 @@ export default async function tunnelmole(options : Options): Promise<string>
         options.port = 3000;
     }
 
-    if (options.setApiKey) {
-       return;
-    }
-
-    const websocket = new HostipWebSocket(config.hostip.endpoint);
+    const websocket = new HostipWebSocket(options.endpoint ?? config.hostip.endpoint);
     const websocketIsReady = websocket.readyState === 1;
 
     const sendInitialiseMessage = async () => {
@@ -37,7 +33,7 @@ export default async function tunnelmole(options : Options): Promise<string>
         };
 
         // Set api key if we have one available
-        const apiKey = await getApiKey();
+        const apiKey = options.setApiKey || await getApiKey();
         if (typeof apiKey === 'string') {
             initialiseMessage.apiKey = apiKey;
         }
