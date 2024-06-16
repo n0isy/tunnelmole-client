@@ -7,6 +7,7 @@ import log from "../logging/log.js"
 import { Options } from "../options.js";
 
 export default async function forwardedRequest(forwardedRequestMessage: ForwardedRequestMessage, websocket: HostipWebSocket, options : Options) {
+    options?.onRequest && await options.onRequest(forwardedRequestMessage);
     const port = options.port;
     const { requestId, url, headers } = forwardedRequestMessage;
 
@@ -47,7 +48,7 @@ export default async function forwardedRequest(forwardedRequestMessage: Forwarde
             if (Buffer.isBuffer(responseBody)) {
                 forwardedResponseMessage.body = responseBody.toString('base64');
             }
-
+            options?.onResponse(forwardedResponseMessage);
             websocket.sendMessage(forwardedResponseMessage);
         })
     });
